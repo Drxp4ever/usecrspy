@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="CRSPY — Next-generation AR glasses. See beyond reality."/>
+<title>CRSPY — See Beyond Reality</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     PRELOADER
+══════════════════════════════════════════════ -->
+<div id="preloader">
+  <div class="pre-inner">
+    <svg class="pre-ring" viewBox="0 0 100 100">
+      <circle class="pre-track" cx="50" cy="50" r="42" fill="none" stroke-width="1.5"/>
+      <circle class="pre-fill"  cx="50" cy="50" r="42" fill="none" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <div class="pre-logo">CRSPY</div>
+    <div class="pre-pct" id="prePct">0%</div>
+  </div>
+  <div class="pre-bar"><div class="pre-bar-fill" id="preBar"></div></div>
+</div>
+
+<!-- CURSOR -->
+<div id="cur-dot"></div>
+<div id="cur-ring"><div class="cur-ring-inner"></div></div>
+
+<!-- PAGE TRANSITION WIPE -->
+<div id="wipe"></div>
+
+<!-- ══════════════════════════════════════════════
+     NAV
+══════════════════════════════════════════════ -->
+<nav id="nav">
+  <a href="#" class="nav-logo" aria-label="CRSPY">
+    <span class="logo-glyph">◈</span>CRSPY
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="#vision"  class="nl">Vision</a></li>
+    <li><a href="#demo"    class="nl">Demo</a></li>
+    <li><a href="#mirror"  class="nl">Mirror</a></li>
+    <li><a href="#tech"    class="nl">Tech</a></li>
+    <li><a href="#apps"    class="nl">Apps</a></li>
+    <li><a href="#configurator" class="nl">Config</a></li>
+    <li><a href="#os"    class="nl">OS</a></li>
+    <li><a href="#reviews" class="nl">Reviews</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-status"><span class="ns-dot"></span><span id="navTime">00:00:00</span></div>
+    <a href="#demo" class="btn-nav-cta">Try Demo</a>
+  </div>
+  <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <a href="#vision"  class="dl">Vision</a>
+  <a href="#demo"    class="dl">Demo</a>
+  <a href="#mirror"  class="dl">Mirror</a>
+  <a href="#tech"    class="dl">Tech</a>
+  <a href="#apps"    class="dl">Apps</a>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     HERO  — full-viewport cinematic
+══════════════════════════════════════════════ -->
+<section class="hero" id="home">
+
+  <!-- Layered background canvases -->
+  <canvas id="c-grid"     class="bg-layer" aria-hidden="true"></canvas>
+  <canvas id="c-particles" class="bg-layer" aria-hidden="true"></canvas>
+
+  <!-- Mouse-parallax depth layers -->
+  <div class="parallax-layer" data-depth="0.02" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+  </div>
+
+  <!-- Floating live HUD chips -->
+  <div class="hud-chips" aria-hidden="true">
+    <div class="chip chip-1">
+      <svg class="chip-spark" viewBox="0 0 32 12"><polyline points="0,6 4,2 8,9 12,4 16,7 20,3 24,8 28,5 32,6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      <span class="chip-lbl">Heart Rate</span>
+      <strong id="chipHr">72 bpm</strong>
+      <span class="chip-dot live"></span>
+    </div>
+    <div class="chip chip-2">
+      <span class="chip-icon">📍</span>
+      <span class="chip-lbl">Navigation</span>
+      <strong>Active</strong>
+      <span class="chip-dot pulse"></span>
+    </div>
+    <div class="chip chip-3">
+      <span class="chip-icon">📞</span>
+      <span class="chip-lbl">Alex Chen</span>
+      <strong>Calling…</strong>
+      <span class="chip-dot ring"></span>
+    </div>
+    <div class="chip chip-4">
+      <span class="chip-icon">🌡</span>
+      <span class="chip-lbl">Ambient</span>
+      <strong>18°C Clear</strong>
+      <span class="chip-dot"></span>
+    </div>
+    <div class="chip chip-5">
+      <span class="chip-icon">⚡</span>
+      <span class="chip-lbl">Battery</span>
+      <strong id="chipBat">94%</strong>
+      <span class="chip-dot live"></span>
+    </div>
+  </div>
+
+  <!-- Hero copy -->
+  <div class="hero-body" id="heroBody">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-line"></span>
+      <span>Spatial Computing · Gen III</span>
+      <span class="eyebrow-line"></span>
+    </div>
+    <h1 class="hero-h1" id="heroH1">
+      <span class="hw" data-word="SEE">SEE</span>
+      <span class="hw stroke" data-word="BEYOND">BEYOND</span>
+      <span class="hw dim" data-word="REALITY">REALITY</span>
+    </h1>
+    <p class="hero-sub">CRSPY overlays your entire digital life onto the physical world — invisibly, instantly, and with zero compromise on style.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" id="heroStart">
+        <span class="btn-shine"></span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="3,1 13,7 3,13"/></svg>
+        Start Experience
+      </button>
+      <a href="#vision" class="btn-ghost">
+        Explore
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 0v10M2 7l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- SVG Glasses — large cinematic render -->
+  <div class="glasses-hero" id="glassesHero">
+    <svg class="gsv" viewBox="0 0 700 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="lg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="glow-f">
+          <feGaussianBlur stdDeviation="3" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <!-- Arms -->
+      <path d="M12 100 Q35 93 75 97" stroke="rgba(255,255,255,0.12)" stroke-width="4" stroke-linecap="round"/>
+      <path d="M688 100 Q665 93 625 97" stroke="rgba(255,255,255,0.12)" stroke-width="4" stroke-linecap="round"/>
+      <!-- Bridge -->
+      <path d="M265 97 Q310 80 350 80 Q390 80 435 97" stroke="rgba(255,255,255,0.18)" stroke-width="3" fill="none"/>
+      <!-- Left lens outer -->
+      <ellipse cx="185" cy="103" rx="105" ry="64" stroke="rgba(var(--accent-rgb),0.4)" stroke-width="2.5" fill="url(#lg)"/>
+      <!-- Left lens inner -->
+      <ellipse cx="185" cy="103" rx="92" ry="54" stroke="rgba(var(--accent-rgb),0.12)" stroke-width="1" fill="none"/>
+      <!-- Right lens outer -->
+      <ellipse cx="515" cy="103" rx="105" ry="64" stroke="rgba(var(--accent-rgb),0.4)" stroke-width="2.5" fill="url(#lg)"/>
+      <!-- Right lens inner -->
+      <ellipse cx="515" cy="103" rx="92" ry="54" stroke="rgba(var(--accent-rgb),0.12)" stroke-width="1" fill="none"/>
+      <!-- Left HUD UI elements -->
+      <g filter="url(#glow-f)" opacity="0.7">
+        <line x1="110" y1="73" x2="126" y2="73" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="110" y1="73" x2="110" y2="89" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="260" y1="73" x2="244" y2="73" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="260" y1="73" x2="260" y2="89" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="110" y1="133" x2="126" y2="133" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="110" y1="133" x2="110" y2="117" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="260" y1="133" x2="244" y2="133" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="260" y1="133" x2="260" y2="117" stroke="var(--accent)" stroke-width="2"/>
+        <!-- Left scan line -->
+        <line class="scan-l" x1="118" y1="103" x2="252" y2="103" stroke="var(--accent)" stroke-width="1"/>
+        <!-- Left status circle -->
+        <circle cx="185" cy="103" r="4" fill="var(--accent)">
+          <animate attributeName="r" values="4;9;4" dur="2.2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.8;0.1;0.8" dur="2.2s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Left HUD text lines -->
+        <rect x="148" y="82" width="74" height="3" rx="1.5" fill="var(--accent)" opacity="0.25"/>
+        <rect x="162" y="90" width="46" height="2" rx="1" fill="var(--accent)" opacity="0.15"/>
+        <text x="185" y="128" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="rgba(var(--accent-rgb),0.55)" letter-spacing="2">AR ACTIVE</text>
+      </g>
+      <!-- Right HUD UI elements -->
+      <g filter="url(#glow-f)" opacity="0.7">
+        <line x1="440" y1="73" x2="456" y2="73" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="440" y1="73" x2="440" y2="89" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="590" y1="73" x2="574" y2="73" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="590" y1="73" x2="590" y2="89" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="440" y1="133" x2="456" y2="133" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="440" y1="133" x2="440" y2="117" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="590" y1="133" x2="574" y2="133" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="590" y1="133" x2="590" y2="117" stroke="var(--accent)" stroke-width="2"/>
+        <line class="scan-r" x1="448" y1="103" x2="582" y2="103" stroke="var(--accent)" stroke-width="1"/>
+        <circle cx="515" cy="103" r="4" fill="var(--accent)">
+          <animate attributeName="r" values="4;9;4" dur="2.2s" begin="0.4s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.8;0.1;0.8" dur="2.2s" begin="0.4s" repeatCount="indefinite"/>
+        </circle>
+        <rect x="478" y="82" width="74" height="3" rx="1.5" fill="var(--accent)" opacity="0.25"/>
+        <rect x="492" y="90" width="46" height="2" rx="1" fill="var(--accent)" opacity="0.15"/>
+        <text x="515" y="128" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="rgba(var(--accent-rgb),0.55)" letter-spacing="2">CRSPY OS 3</text>
+      </g>
+    </svg>
+    <div class="glasses-bloom"></div>
+  </div>
+
+  <!-- Hero stats bar -->
+  <div class="hero-stats" id="heroStats">
+    <div class="hstat"><span class="hstat-n" data-target="8">0</span><span class="hstat-u">K</span><div class="hstat-l">Micro-OLED</div></div>
+    <div class="hstat-div"></div>
+    <div class="hstat"><span class="hstat-n" data-target="12">0</span><span class="hstat-u">h</span><div class="hstat-l">Battery</div></div>
+    <div class="hstat-div"></div>
+    <div class="hstat"><span class="hstat-n" data-target="42">0</span><span class="hstat-u">g</span><div class="hstat-l">Ultralight</div></div>
+    <div class="hstat-div"></div>
+    <div class="hstat"><span class="hstat-n" data-target="3">0</span><span class="hstat-u">ms</span><div class="hstat-l">Latency</div></div>
+    <div class="hstat-div"></div>
+    <div class="hstat"><span class="hstat-n" data-target="200">0</span><span class="hstat-u">°</span><div class="hstat-l">Field of View</div></div>
+  </div>
+
+  <div class="scroll-cue">
+    <div class="sc-line"></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="mq-wrap">
+  <div class="mq-track">
+    <span>SPATIAL COMPUTING</span><span class="mx">◈</span>
+    <span>8K MICRO-OLED</span><span class="mx">◈</span>
+    <span>NEURAL GAZE CONTROL</span><span class="mx">◈</span>
+    <span>ZERO LATENCY</span><span class="mx">◈</span>
+    <span>AMBIENT OS</span><span class="mx">◈</span>
+    <span>ON-DEVICE AI</span><span class="mx">◈</span>
+    <span>TITANIUM FRAME</span><span class="mx">◈</span>
+    <span>SPATIAL COMPUTING</span><span class="mx">◈</span>
+    <span>8K MICRO-OLED</span><span class="mx">◈</span>
+    <span>NEURAL GAZE CONTROL</span><span class="mx">◈</span>
+    <span>ZERO LATENCY</span><span class="mx">◈</span>
+    <span>AMBIENT OS</span><span class="mx">◈</span>
+    <span>ON-DEVICE AI</span><span class="mx">◈</span>
+    <span>TITANIUM FRAME</span><span class="mx">◈</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     VISION SECTION
+══════════════════════════════════════════════ -->
+<section class="vision-section" id="vision">
+  <div class="container">
+    <div class="sec-eyebrow reveal">Core Technology</div>
+    <h2 class="sec-h2 reveal">Built for humans<br/><em>who move fast.</em></h2>
+
+    <div class="vision-grid">
+      <article class="vc vc-large reveal" tabindex="0">
+        <div class="vc-num">01</div>
+        <div class="vc-icon-wrap"><span class="vc-icon">◎</span></div>
+        <h3>Spatial Depth Engine</h3>
+        <p>Real-time 120fps depth mapping renders digital objects with sub-millimetre precision — anchored to your physical world, not floating arbitrarily in it.</p>
+        <div class="vc-pill">120fps · Dual LiDAR</div>
+        <div class="vc-bg">◎</div>
+      </article>
+      <article class="vc reveal rd1" tabindex="0">
+        <div class="vc-num">02</div>
+        <div class="vc-icon-wrap"><span class="vc-icon">⬡</span></div>
+        <h3>Ambient OS</h3>
+        <p>Surfaces only what matters. Zero feeds. Zero noise. Pure signal, on demand.</p>
+        <div class="vc-pill">Zero Distraction</div>
+        <div class="vc-bg">⬡</div>
+      </article>
+      <article class="vc reveal rd2" tabindex="0">
+        <div class="vc-num">03</div>
+        <div class="vc-icon-wrap"><span class="vc-icon">◈</span></div>
+        <h3>Neural Gaze</h3>
+        <p>Gaze + micro-gesture tracking. Your hands stay free. Think it. See it. Done.</p>
+        <div class="vc-pill">Gaze · Gesture</div>
+        <div class="vc-bg">◈</div>
+      </article>
+      <article class="vc vc-wide reveal rd1" tabindex="0">
+        <div class="vc-num">04</div>
+        <div class="vc-icon-wrap"><span class="vc-icon">⌬</span></div>
+        <h3>Always-On Mesh Network</h3>
+        <p>5G + Wi-Fi 7 with seamless handoff. Your AR is unbroken whether you're at a desk or crossing a city at 60mph. All edge compute runs on-device at 3ms.</p>
+        <div class="vc-pill">5G · Wi-Fi 7 · Edge AI</div>
+        <div class="vc-bg">⌬</div>
+      </article>
+      <article class="vc reveal rd3" tabindex="0">
+        <div class="vc-num">05</div>
+        <div class="vc-icon-wrap"><span class="vc-icon">⊕</span></div>
+        <h3>Biometric Suite</h3>
+        <p>HR, SpO₂, stress, temperature — shown as ambient HUD rings only when you need them.</p>
+        <div class="vc-pill">Health · Always Ready</div>
+        <div class="vc-bg">⊕</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     LIVE BIOMETRIC DASHBOARD
+══════════════════════════════════════════════ -->
+<section class="bio-section" id="biometrics">
+  <div class="container">
+    <div class="sec-eyebrow reveal">Live Biometrics</div>
+    <h2 class="sec-h2 reveal">Your body,<br/><em>in real time.</em></h2>
+    <p class="sec-sub reveal">CRSPY monitors your health 24/7 and surfaces data as minimal HUD overlays — only when relevant.</p>
+
+    <div class="bio-dashboard reveal">
+      <!-- Heart rate chart -->
+      <div class="bio-card bio-hr">
+        <div class="bio-card-header">
+          <span class="bio-label">Heart Rate</span>
+          <span class="bio-value" id="bioHr">72 <span>bpm</span></span>
+          <span class="bio-status ok">Normal</span>
+        </div>
+        <canvas id="hrChart" height="80"></canvas>
+        <div class="bio-range">
+          <span>Resting 58</span>
+          <span>Peak 142</span>
+        </div>
+      </div>
+
+      <!-- SpO2 ring -->
+      <div class="bio-card bio-spo2">
+        <div class="bio-card-header">
+          <span class="bio-label">SpO₂</span>
+          <span class="bio-value" id="bioSpo">98 <span>%</span></span>
+          <span class="bio-status ok">Optimal</span>
+        </div>
+        <div class="spo2-ring-wrap">
+          <svg class="spo2-svg" viewBox="0 0 120 120">
+            <circle class="spo2-track" cx="60" cy="60" r="48" fill="none" stroke-width="8"/>
+            <circle class="spo2-fill"  cx="60" cy="60" r="48" fill="none" stroke-width="8" id="spo2Arc"/>
+            <text x="60" y="56" text-anchor="middle" class="spo2-big" id="spo2Pct">98</text>
+            <text x="60" y="70" text-anchor="middle" class="spo2-unit">%</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Stress -->
+      <div class="bio-card bio-stress">
+        <div class="bio-card-header">
+          <span class="bio-label">Stress Index</span>
+          <span class="bio-value" id="bioStress">Low</span>
+          <span class="bio-status ok">Calm</span>
+        </div>
+        <div class="stress-bars">
+          <div class="sb-row"><span>Mental</span><div class="sb-track"><div class="sb-fill" id="sbMental" style="width:22%"></div></div><span id="sbMentalV">22</span></div>
+          <div class="sb-row"><span>Physical</span><div class="sb-track"><div class="sb-fill" id="sbPhysical" style="width:35%"></div></div><span id="sbPhysicalV">35</span></div>
+          <div class="sb-row"><span>Overall</span><div class="sb-track"><div class="sb-fill" id="sbOverall" style="width:28%"></div></div><span id="sbOverallV">28</span></div>
+        </div>
+      </div>
+
+      <!-- Steps today -->
+      <div class="bio-card bio-steps">
+        <div class="bio-card-header">
+          <span class="bio-label">Steps Today</span>
+          <span class="bio-value" id="bioSteps">7,241</span>
+          <span class="bio-status ok">On Track</span>
+        </div>
+        <div class="steps-progress">
+          <div class="steps-arc-wrap">
+            <svg class="steps-svg" viewBox="0 0 120 70">
+              <path class="steps-track" d="M10 65 A50 50 0 0 1 110 65" fill="none" stroke-width="8"/>
+              <path class="steps-fill" id="stepsArc" d="M10 65 A50 50 0 0 1 110 65" fill="none" stroke-width="8" stroke-dasharray="157" stroke-dashoffset="50"/>
+            </svg>
+            <div class="steps-label-center"><span id="stepsPct">72</span><small>%</small></div>
+          </div>
+          <div class="steps-goal">Goal: 10,000</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     3D AR DEMO
+══════════════════════════════════════════════ -->
+<section class="demo-section" id="demo">
+  <div class="container">
+    <div class="sec-eyebrow reveal">Interactive Demo</div>
+    <h2 class="sec-h2 reveal">Experience CRSPY<br/><em>live.</em></h2>
+    <p class="sec-sub reveal">Full Three.js AR scene. Customise in real time. Click objects to inspect.</p>
+
+    <div class="demo-shell reveal">
+
+      <!-- VIEWPORT -->
+      <div class="ar-vp" id="arVp">
+        <canvas id="ar-canvas"></canvas>
+
+        <!-- Corner brackets -->
+        <div class="vpc vpc-tl"></div>
+        <div class="vpc vpc-tr"></div>
+        <div class="vpc vpc-bl"></div>
+        <div class="vpc vpc-br"></div>
+
+        <!-- Scan line overlay -->
+        <div class="vp-scan" id="vpScan"></div>
+
+        <!-- HUD -->
+        <div class="vp-hud" aria-hidden="true">
+          <div class="vph-tl">
+            <div class="vp-badge" id="vpBadge">INACTIVE</div>
+            <div class="vp-mode" id="vpMode">STANDBY</div>
+          </div>
+          <div class="vph-tr">
+            <div class="vp-fps" id="vpFps">— fps</div>
+            <div class="vp-time" id="vpTime">00:00</div>
+          </div>
+          <div class="vph-bl">
+            <div class="vp-coord" id="vpCoord">CAM x:0.0 y:0.0 z:0.0</div>
+          </div>
+          <div class="vph-br">
+            <div class="vp-objs" id="vpObjs">0 objects</div>
+          </div>
+        </div>
+
+        <!-- Idle overlay -->
+        <div class="vp-idle" id="vpIdle">
+          <div class="idle-rings">
+            <div class="ir ir1"></div>
+            <div class="ir ir2"></div>
+            <div class="ir ir3"></div>
+            <div class="idle-glyph">◈</div>
+          </div>
+          <h3>CRSPY AR Scene</h3>
+          <p>Three.js · WebGL · Real-time 3D</p>
+          <button class="btn-primary" id="startBtn">
+            <span class="btn-shine"></span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg>
+            Launch Scene
+          </button>
+          <div class="idle-keys"><kbd>SPACE</kbd> to toggle · <kbd>R</kbd> to reset · <kbd>ESC</kbd> deselect</div>
+        </div>
+
+        <!-- Selected object panel -->
+        <div class="sel-panel" id="selPanel">
+          <div class="sel-header">
+            <span class="sel-dot"></span>
+            <span id="selName">—</span>
+            <button class="sel-close" id="selClose">✕</button>
+          </div>
+          <div class="sel-body">
+            <div class="sel-row"><span>Type</span><span id="selType">—</span></div>
+            <div class="sel-row"><span>Position</span><span id="selPos">—</span></div>
+            <div class="sel-row"><span>Rotation</span><span id="selRot">—</span></div>
+            <div class="sel-row"><span>Status</span><span class="sel-status-ok">Online</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- /VIEWPORT -->
+
+      <!-- CONTROLS -->
+      <aside class="ctrl-panel" id="ctrlPanel" aria-label="Scene controls">
+        <div class="cp-head">
+          <span>Scene Controls</span>
+          <div class="cp-live"><span class="cp-live-dot" id="cpLiveDot"></span>LIVE</div>
+        </div>
+
+        <div class="cp-sliders">
+          <div class="cp-grp">
+            <div class="cp-lrow"><label>Objects</label><span class="cpv" id="vObj">8</span></div>
+            <div class="cp-slider-wrap"><input type="range" class="cs" id="sObj" min="1" max="28" value="8"/></div>
+          </div>
+          <div class="cp-grp">
+            <div class="cp-lrow"><label>Rotation Speed</label><span class="cpv" id="vSpd">1.0×</span></div>
+            <div class="cp-slider-wrap"><input type="range" class="cs" id="sSpd" min="0" max="40" value="10"/></div>
+          </div>
+          <div class="cp-grp">
+            <div class="cp-lrow"><label>Glow Intensity</label><span class="cpv" id="vGlw">60%</span></div>
+            <div class="cp-slider-wrap"><input type="range" class="cs" id="sGlw" min="0" max="100" value="60"/></div>
+          </div>
+          <div class="cp-grp">
+            <div class="cp-lrow"><label>Spread Radius</label><span class="cpv" id="vRad">4.0</span></div>
+            <div class="cp-slider-wrap"><input type="range" class="cs" id="sRad" min="1" max="14" value="4"/></div>
+          </div>
+          <div class="cp-grp">
+            <div class="cp-lrow"><label>Particles</label><span class="cpv" id="vPart">200</span></div>
+            <div class="cp-slider-wrap"><input type="range" class="cs" id="sPart" min="50" max="800" value="200"/></div>
+          </div>
+          <div class="cp-grp">
+            <div class="cp-lrow"><label>Fog Density</label><span class="cpv" id="vFog">0.04</span></div>
+            <div class="cp-slider-wrap"><input type="range" class="cs" id="sFog" min="0" max="20" value="4"/></div>
+          </div>
+        </div>
+
+        <div class="cp-div"></div>
+
+        <div class="cp-toggles">
+          <div class="cp-tog-row"><span>Labels</span>    <label class="tog"><input type="checkbox" id="tLbl"  checked/><span class="tt"><span class="tk"></span></span></label></div>
+          <div class="cp-tog-row"><span>Wireframe</span> <label class="tog"><input type="checkbox" id="tWire"/><span class="tt"><span class="tk"></span></span></label></div>
+          <div class="cp-tog-row"><span>Auto-Orbit</span><label class="tog"><input type="checkbox" id="tOrb"  checked/><span class="tt"><span class="tk"></span></span></label></div>
+          <div class="cp-tog-row"><span>Bloom</span>     <label class="tog"><input type="checkbox" id="tBlm"  checked/><span class="tt"><span class="tk"></span></span></label></div>
+          <div class="cp-tog-row"><span>Grid Floor</span><label class="tog"><input type="checkbox" id="tGrid" checked/><span class="tt"><span class="tk"></span></span></label></div>
+          <div class="cp-tog-row"><span>Pulse Glow</span><label class="tog"><input type="checkbox" id="tPls"  checked/><span class="tt"><span class="tk"></span></span></label></div>
+        </div>
+
+        <div class="cp-div"></div>
+
+        <!-- Colour theme -->
+        <div class="cp-lrow" style="margin-bottom:.6rem"><label>Colour Theme</label></div>
+        <div class="cp-palette">
+          <button class="cp-pal active" data-pal="cyan"   title="Cyan"   style="--c:#00f0ff"></button>
+          <button class="cp-pal"        data-pal="violet" title="Violet" style="--c:#c47bff"></button>
+          <button class="cp-pal"        data-pal="ember"  title="Ember"  style="--c:#ff5f2e"></button>
+          <button class="cp-pal"        data-pal="lime"   title="Lime"   style="--c:#39ff14"></button>
+          <button class="cp-pal"        data-pal="gold"   title="Gold"   style="--c:#ffc107"></button>
+          <button class="cp-pal"        data-pal="rose"   title="Rose"   style="--c:#ff4488"></button>
+        </div>
+
+        <!-- Geometry mode -->
+        <div class="cp-div"></div>
+        <div class="cp-lrow" style="margin-bottom:.6rem"><label>Geometry</label></div>
+        <div class="cp-geobtns">
+          <button class="cp-geo active" data-geo="mix"   >Mix</button>
+          <button class="cp-geo"        data-geo="cubes" >Cubes</button>
+          <button class="cp-geo"        data-geo="spheres">Spheres</button>
+          <button class="cp-geo"        data-geo="rings" >Rings</button>
+        </div>
+
+        <div class="cp-div"></div>
+
+        <div class="cp-actions">
+          <button class="cp-apply" id="applyBtn">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+            Apply Changes
+          </button>
+          <button class="cp-reset" id="resetBtn">Reset Scene</button>
+        </div>
+
+        <!-- Mini live stats -->
+        <div class="cp-div"></div>
+        <div class="cp-stats">
+          <div class="cp-stat"><span>Draw Calls</span><span id="stDraws">—</span></div>
+          <div class="cp-stat"><span>Triangles</span><span id="stTris">—</span></div>
+          <div class="cp-stat"><span>Geometries</span><span id="stGeo">—</span></div>
+        </div>
+      </aside>
+
+    </div><!-- /demo-shell -->
+
+    <div class="demo-hints reveal">
+      <div class="dh"><span class="dh-key">SPACE</span> Start / Stop</div>
+      <div class="dh"><span class="dh-key">DRAG</span> Orbit camera</div>
+      <div class="dh"><span class="dh-key">SCROLL</span> Zoom in / out</div>
+      <div class="dh"><span class="dh-key">CLICK</span> Select object</div>
+      <div class="dh"><span class="dh-key">R</span> Reset scene</div>
+      <div class="dh"><span class="dh-key">ESC</span> Deselect</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     AR MIRROR MODE  (webcam + canvas overlay)
+══════════════════════════════════════════════ -->
+<section class="mirror-section" id="mirror">
+  <div class="container">
+    <div class="sec-eyebrow reveal">AR Mirror Mode</div>
+    <h2 class="sec-h2 reveal">See yourself<br/><em>through CRSPY.</em></h2>
+    <p class="sec-sub reveal">Enable your camera and see what CRSPY AR overlays look like in the real world — live HUD elements rendered on top of your feed.</p>
+
+    <div class="mirror-shell reveal">
+      <div class="mirror-vp" id="mirrorVp">
+        <video id="mirrorVideo" autoplay muted playsinline></video>
+        <canvas id="mirrorCanvas"></canvas>
+        <!-- HUD overlays on mirror -->
+        <div class="mirror-hud" id="mirrorHud" style="display:none">
+          <div class="mh-tl">
+            <div class="mh-badge">AR LIVE</div>
+            <div class="mh-stat" id="mhHr">♥ 72 bpm</div>
+          </div>
+          <div class="mh-tr">
+            <div class="mh-stat" id="mhTime"></div>
+            <div class="mh-stat">📍 Navigation Active</div>
+          </div>
+          <div class="mh-bl">
+            <div class="mh-stat" id="mhTemp">18°C Clear</div>
+          </div>
+          <div class="mh-br">
+            <div class="mh-stat">CRSPY OS 3.0</div>
+          </div>
+          <!-- Reticle -->
+          <div class="mh-reticle">
+            <div class="mh-r-tl"></div>
+            <div class="mh-r-tr"></div>
+            <div class="mh-r-bl"></div>
+            <div class="mh-r-br"></div>
+          </div>
+        </div>
+        <!-- Idle state -->
+        <div class="mirror-idle" id="mirrorIdle">
+          <div class="mi-icon">📷</div>
+          <h3>AR Mirror</h3>
+          <p>Enable your camera to experience live AR overlays on your own feed.</p>
+          <button class="btn-primary" id="mirrorStart">
+            <span class="btn-shine"></span>Enable Camera
+          </button>
+          <p class="mi-note">Camera feed never leaves your device.</p>
+        </div>
+      </div>
+
+      <div class="mirror-ctrl">
+        <h3>HUD Overlays</h3>
+        <div class="mc-tog-row"><span>Heart Rate</span>    <label class="tog"><input type="checkbox" id="mHr" checked/><span class="tt"><span class="tk"></span></span></label></div>
+        <div class="mc-tog-row"><span>Navigation</span>   <label class="tog"><input type="checkbox" id="mNav" checked/><span class="tt"><span class="tk"></span></span></label></div>
+        <div class="mc-tog-row"><span>Time</span>         <label class="tog"><input type="checkbox" id="mTime" checked/><span class="tt"><span class="tk"></span></span></label></div>
+        <div class="mc-tog-row"><span>Temperature</span>  <label class="tog"><input type="checkbox" id="mTemp" checked/><span class="tt"><span class="tk"></span></span></label></div>
+        <div class="mc-tog-row"><span>Reticle</span>      <label class="tog"><input type="checkbox" id="mRet" checked/><span class="tt"><span class="tk"></span></span></label></div>
+        <div class="mc-tog-row"><span>Scanlines</span>    <label class="tog"><input type="checkbox" id="mScan"/><span class="tt"><span class="tk"></span></span></label></div>
+        <div class="cp-div" style="margin:1rem 0"></div>
+        <h3>Lens Style</h3>
+        <div class="mirror-styles">
+          <button class="ms-btn active" data-style="none">None</button>
+          <button class="ms-btn" data-style="cyan">Cyan Tint</button>
+          <button class="ms-btn" data-style="thermal">Thermal</button>
+          <button class="ms-btn" data-style="night">Night Vision</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     TECH / SPECS
+══════════════════════════════════════════════ -->
+<section class="tech-section" id="tech">
+  <div class="container">
+    <div class="sec-eyebrow reveal">Specifications</div>
+    <h2 class="sec-h2 reveal">The numbers<br/><em>don't lie.</em></h2>
+
+    <div class="specs-grid reveal">
+      <div class="sg-item">
+        <div class="sg-val" data-target="8">0</div><div class="sg-unit">K</div>
+        <div class="sg-name">Micro-OLED Display<br/><small>Per Eye · 120Hz Adaptive</small></div>
+      </div>
+      <div class="sg-item">
+        <div class="sg-val" data-target="12">0</div><div class="sg-unit">h</div>
+        <div class="sg-name">Battery Life<br/><small>Graphene · 20min Charge</small></div>
+      </div>
+      <div class="sg-item">
+        <div class="sg-val" data-target="42">0</div><div class="sg-unit">g</div>
+        <div class="sg-name">Total Weight<br/><small>Titanium + Carbon Fibre</small></div>
+      </div>
+      <div class="sg-item">
+        <div class="sg-val" data-target="3">0</div><div class="sg-unit">ms</div>
+        <div class="sg-name">Motion-to-Photon<br/><small>On-Device Edge AI</small></div>
+      </div>
+      <div class="sg-item">
+        <div class="sg-val" data-target="200">0</div><div class="sg-unit">°</div>
+        <div class="sg-name">Field of View<br/><small>Full Peripheral AR Fill</small></div>
+      </div>
+      <div class="sg-item">
+        <div class="sg-val" data-target="5">0</div><div class="sg-unit">G</div>
+        <div class="sg-name">Connectivity<br/><small>Wi-Fi 7 · Bluetooth 5.4</small></div>
+      </div>
+    </div>
+
+    <!-- Comparison table -->
+    <div class="comp-table reveal">
+      <div class="ct-head">
+        <div></div>
+        <div class="ct-col ct-ours">CRSPY Gen III</div>
+        <div class="ct-col">Competitor A</div>
+        <div class="ct-col">Competitor B</div>
+      </div>
+      <div class="ct-row">
+        <span>Display</span>
+        <span class="ct-ours ct-best">8K Micro-OLED</span>
+        <span>4K LCD</span>
+        <span>2K OLED</span>
+      </div>
+      <div class="ct-row">
+        <span>Weight</span>
+        <span class="ct-ours ct-best">42g</span>
+        <span>98g</span>
+        <span>76g</span>
+      </div>
+      <div class="ct-row">
+        <span>Latency</span>
+        <span class="ct-ours ct-best">3ms</span>
+        <span>18ms</span>
+        <span>12ms</span>
+      </div>
+      <div class="ct-row">
+        <span>Battery</span>
+        <span class="ct-ours ct-best">12 hours</span>
+        <span>4 hours</span>
+        <span>6 hours</span>
+      </div>
+      <div class="ct-row">
+        <span>On-Device AI</span>
+        <span class="ct-ours ct-best">✓ Full</span>
+        <span>Partial</span>
+        <span>✗ Cloud only</span>
+      </div>
+      <div class="ct-row">
+        <span>Field of View</span>
+        <span class="ct-ours ct-best">200°</span>
+        <span>110°</span>
+        <span>90°</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     APPS
+══════════════════════════════════════════════ -->
+<section class="apps-section" id="apps">
+  <div class="container">
+    <div class="sec-eyebrow reveal">App Ecosystem</div>
+    <h2 class="sec-h2 reveal">Your world,<br/><em>overlaid.</em></h2>
+    <p class="sec-sub reveal">200+ AR-native apps built for CRSPY OS. Zero porting required.</p>
+
+    <div class="apps-grid">
+      <div class="ac ac-feat reveal"  tabindex="0"><div class="ac-glow"></div><span class="ac-ico">📍</span><h3>Navigation</h3><p>Turn-by-turn AR directions anchored to streets in real time.</p><span class="ac-tag">Spatial · Live Maps</span></div>
+      <div class="ac reveal rd1"     tabindex="0"><div class="ac-glow"></div><span class="ac-ico">❤️</span><h3>Health</h3><p>Continuous biometrics as minimal HUD overlays, always on.</p><span class="ac-tag">Always-On Biometrics</span></div>
+      <div class="ac reveal rd2"     tabindex="0"><div class="ac-glow"></div><span class="ac-ico">💬</span><h3>Messages</h3><p>Spatial notifications floating in your peripheral vision.</p><span class="ac-tag">Ambient · Zero Distraction</span></div>
+      <div class="ac reveal rd3"     tabindex="0"><div class="ac-glow"></div><span class="ac-ico">🌐</span><h3>Translate</h3><p>Point and read — live visual translation of 140 languages.</p><span class="ac-tag">AI · 140 Languages</span></div>
+      <div class="ac reveal rd4"     tabindex="0"><div class="ac-glow"></div><span class="ac-ico">📷</span><h3>Capture</h3><p>Hands-free spatial recording at 8K RAW. Blink to shoot.</p><span class="ac-tag">8K · RAW · Spatial</span></div>
+      <div class="ac reveal rd1"     tabindex="0"><div class="ac-glow"></div><span class="ac-ico">🎵</span><h3>Sound</h3><p>Spatial audio HUD with directional source visualisation.</p><span class="ac-tag">Spatial Audio</span></div>
+      <div class="ac reveal rd2"     tabindex="0"><div class="ac-glow"></div><span class="ac-ico">🧠</span><h3>AI Assistant</h3><p>On-device LLM with zero-latency contextual awareness.</p><span class="ac-tag">On-Device · Private</span></div>
+      <div class="ac reveal rd3"     tabindex="0"><div class="ac-glow"></div><span class="ac-ico">💼</span><h3>Workspace</h3><p>Floating spatial panels, docs, and collaboration in 3D.</p><span class="ac-tag">Spatial Office</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     SCROLL STORY  — cinematic parallax narrative
+══════════════════════════════════════════════ -->
+<section class="story-section" id="story" aria-label="Product story">
+  <div class="story-track" id="storyTrack">
+
+    <div class="story-panel sp-1">
+      <div class="sp-bg" data-depth="0.06"></div>
+      <div class="sp-content">
+        <div class="sp-tag reveal">Chapter 01</div>
+        <h2 class="sp-h reveal">The world<br/><em>is the screen.</em></h2>
+        <p class="sp-p reveal">We spent three years convinced the future of computing was a rectangle in your pocket. CRSPY is the proof that we were wrong.</p>
+      </div>
+      <div class="sp-visual sp-glasses-float" aria-hidden="true">
+        <div class="spg-lens spg-l"></div>
+        <div class="spg-bridge"></div>
+        <div class="spg-lens spg-r"></div>
+      </div>
+    </div>
+
+    <div class="story-panel sp-2">
+      <div class="sp-bg" data-depth="0.04"></div>
+      <div class="sp-content">
+        <div class="sp-tag reveal">Chapter 02</div>
+        <h2 class="sp-h reveal">42 grams.<br/><em>Zero compromise.</em></h2>
+        <p class="sp-p reveal">Titanium temples. Carbon-fibre bridge. Graphene battery cell the size of a credit card. We removed everything that didn't need to be there.</p>
+        <div class="sp-materials reveal">
+          <div class="spm"><div class="spm-swatch" style="background:linear-gradient(135deg,#c8cdd4,#8a9199)"></div><span>Titanium</span></div>
+          <div class="spm"><div class="spm-swatch" style="background:linear-gradient(135deg,#1a1a1a,#3a3a3a)"></div><span>Carbon Fibre</span></div>
+          <div class="spm"><div class="spm-swatch" style="background:linear-gradient(135deg,#2a3a4a,#1a2535)"></div><span>Graphene</span></div>
+          <div class="spm"><div class="spm-swatch" style="background:linear-gradient(135deg,rgba(0,240,255,.3),rgba(0,180,255,.1))"></div><span>Micro-OLED</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-panel sp-3">
+      <div class="sp-bg" data-depth="0.08"></div>
+      <div class="sp-content">
+        <div class="sp-tag reveal">Chapter 03</div>
+        <h2 class="sp-h reveal">Your OS.<br/><em>Reinvented.</em></h2>
+        <p class="sp-p reveal">CRSPY OS isn't a port of a phone OS. It was written from scratch for the spatial paradigm — gestures, gaze, and ambience.</p>
+      </div>
+      <div class="sp-os-preview" aria-hidden="true">
+        <div class="sop-chip sop-1"><span>♥ 72 bpm</span></div>
+        <div class="sop-chip sop-2"><span>📍 2 min away</span></div>
+        <div class="sop-chip sop-3"><span>🌡 18°C</span></div>
+        <div class="sop-reticle">
+          <div class="sopr-tl"></div><div class="sopr-tr"></div>
+          <div class="sopr-bl"></div><div class="sopr-br"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     3D CONFIGURATOR  — live glasses builder
+══════════════════════════════════════════════ -->
+<section class="config-section" id="configurator" aria-label="Product configurator">
+  <div class="container">
+    <div class="sec-eyebrow reveal">Configurator</div>
+    <h2 class="sec-h2 reveal">Make it<br/><em>yours.</em></h2>
+    <p class="sec-sub reveal">Every CRSPY is hand-finished to order. Choose your frame, lens, and engraving below — or spin the model to explore.</p>
+
+    <div class="config-shell reveal">
+      <!-- 3D viewport -->
+      <div class="cfg-vp" id="cfgVp" aria-label="3D glasses preview">
+        <canvas id="cfg-canvas"></canvas>
+        <div class="cfg-hint" id="cfgHint">Drag to rotate · Scroll to zoom</div>
+        <div class="cfg-badge" id="cfgBadge">CRSPY Gen III</div>
+        <!-- Corner markers -->
+        <div class="cfgc cfgc-tl"></div><div class="cfgc cfgc-tr"></div>
+        <div class="cfgc cfgc-bl"></div><div class="cfgc cfgc-br"></div>
+      </div>
+
+      <!-- Config options -->
+      <div class="cfg-opts" id="cfgOpts">
+        <div class="cfg-section">
+          <h3 class="cfg-h">Frame Material</h3>
+          <div class="cfg-swatches" id="frameMat" role="radiogroup" aria-label="Frame material">
+            <button class="csw active" data-mat="titanium" aria-label="Titanium" title="Titanium">
+              <div class="csw-dot" style="background:linear-gradient(135deg,#c8cdd4,#8a9199)"></div>
+              <span>Titanium</span>
+            </button>
+            <button class="csw" data-mat="carbon" aria-label="Carbon" title="Carbon Fibre">
+              <div class="csw-dot" style="background:linear-gradient(135deg,#1a1a1a,#3d3d3d)"></div>
+              <span>Carbon</span>
+            </button>
+            <button class="csw" data-mat="gold" aria-label="Gold" title="18K Gold">
+              <div class="csw-dot" style="background:linear-gradient(135deg,#d4a843,#b8860b)"></div>
+              <span>18K Gold</span>
+            </button>
+            <button class="csw" data-mat="ceramic" aria-label="Ceramic" title="Ceramic White">
+              <div class="csw-dot" style="background:linear-gradient(135deg,#f0f0f0,#d8d8d8)"></div>
+              <span>Ceramic</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="cfg-section">
+          <h3 class="cfg-h">Lens Tint</h3>
+          <div class="cfg-swatches" id="lensTint" role="radiogroup" aria-label="Lens tint">
+            <button class="csw active" data-tint="clear" aria-label="Clear">
+              <div class="csw-dot" style="background:rgba(0,240,255,.15);border:1px solid rgba(0,240,255,.4)"></div>
+              <span>Clear</span>
+            </button>
+            <button class="csw" data-tint="smoke" aria-label="Smoke">
+              <div class="csw-dot" style="background:rgba(30,40,50,.7)"></div>
+              <span>Smoke</span>
+            </button>
+            <button class="csw" data-tint="amber" aria-label="Amber">
+              <div class="csw-dot" style="background:rgba(255,180,40,.4)"></div>
+              <span>Amber</span>
+            </button>
+            <button class="csw" data-tint="mirror" aria-label="Mirror">
+              <div class="csw-dot" style="background:linear-gradient(135deg,#a0c0e0,#e0a0c0)"></div>
+              <span>Mirror</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="cfg-section">
+          <h3 class="cfg-h">HUD Accent</h3>
+          <div class="cfg-swatches" id="hudAccent" role="radiogroup" aria-label="HUD accent colour">
+            <button class="csw active" data-hud="cyan"  aria-label="Cyan"><div class="csw-dot" style="background:#00f0ff;box-shadow:0 0 8px rgba(0,240,255,.5)"></div><span>Cyan</span></button>
+            <button class="csw" data-hud="violet" aria-label="Violet"><div class="csw-dot" style="background:#c47bff;box-shadow:0 0 8px rgba(196,123,255,.5)"></div><span>Violet</span></button>
+            <button class="csw" data-hud="ember"  aria-label="Ember"><div class="csw-dot" style="background:#ff5f2e;box-shadow:0 0 8px rgba(255,95,46,.5)"></div><span>Ember</span></button>
+            <button class="csw" data-hud="gold"   aria-label="Gold"><div class="csw-dot" style="background:#ffc107;box-shadow:0 0 8px rgba(255,193,7,.5)"></div><span>Gold</span></button>
+          </div>
+        </div>
+
+        <div class="cfg-section">
+          <h3 class="cfg-h">Engraving</h3>
+          <input type="text" class="cfg-engrave" id="cfgEngrave" placeholder="Your name or message (max 24 chars)" maxlength="24" aria-label="Custom engraving text"/>
+          <div class="cfg-engrave-preview" id="cfgEngravePreview">Preview: —</div>
+        </div>
+
+        <div class="cfg-section">
+          <h3 class="cfg-h">Edition</h3>
+          <div class="cfg-editions">
+            <div class="cfg-ed active" data-ed="standard" tabindex="0">
+              <span class="ced-name">Standard</span>
+              <span class="ced-price">$1,299</span>
+              <span class="ced-desc">Everything you need. Nothing you don't.</span>
+            </div>
+            <div class="cfg-ed" data-ed="pro" tabindex="0">
+              <span class="ced-name">Pro</span>
+              <span class="ced-price">$1,799</span>
+              <span class="ced-desc">Neural gaze + biometric suite + priority support.</span>
+            </div>
+            <div class="cfg-ed" data-ed="obsidian" tabindex="0">
+              <span class="ced-name">Obsidian ✦</span>
+              <span class="ced-price">$2,499</span>
+              <span class="ced-desc">Carbon fibre. 18K accents. Lifetime hardware warranty.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cfg-total">
+          <span>Total</span>
+          <span class="cfg-price" id="cfgPrice">$1,299</span>
+        </div>
+        <button class="btn-primary cfg-buy" id="cfgBuy">
+          <span class="btn-shine"></span>
+          Add to Reserve List
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     CRSPY OS SIMULATOR  — interactive OS experience
+══════════════════════════════════════════════ -->
+<section class="os-section" id="os" aria-label="CRSPY OS experience">
+  <div class="container">
+    <div class="sec-eyebrow reveal">CRSPY OS 3.0</div>
+    <h2 class="sec-h2 reveal">The operating system<br/><em>behind the lens.</em></h2>
+    <p class="sec-sub reveal">Click the glasses below to launch a live simulation of CRSPY OS — the spatial interface that runs everything.</p>
+  </div>
+
+  <!-- Full-width OS viewport -->
+  <div class="os-vp" id="osVp" tabindex="0" aria-label="CRSPY OS simulator — click to launch">
+    <!-- Idle launch state -->
+    <div class="os-launch" id="osLaunch">
+      <div class="os-launch-glasses" aria-hidden="true">
+        <div class="olg-l"></div><div class="olg-b"></div><div class="olg-r"></div>
+      </div>
+      <p>Click to enter CRSPY OS</p>
+      <div class="os-launch-hint">Full-screen spatial experience</div>
+    </div>
+
+    <!-- OS Interface (hidden until launched) -->
+    <div class="os-interface" id="osInterface" style="display:none" aria-label="CRSPY OS interface">
+      <!-- Background layer -->
+      <canvas class="os-bg-canvas" id="osBgCanvas"></canvas>
+
+      <!-- Top status bar -->
+      <div class="os-topbar">
+        <span class="os-logo">◈ CRSPY OS</span>
+        <div class="os-topbar-center">
+          <span class="os-time" id="osTime">00:00</span>
+        </div>
+        <div class="os-topbar-right">
+          <span class="os-stat">♥ <span id="osHr">72</span></span>
+          <span class="os-stat">⚡ 94%</span>
+          <span class="os-stat os-wifi">▲▲▲</span>
+        </div>
+      </div>
+
+      <!-- Central reticle / gaze indicator -->
+      <div class="os-reticle" id="osReticle" aria-hidden="true">
+        <div class="osr-tl"></div><div class="osr-tr"></div>
+        <div class="osr-bl"></div><div class="osr-br"></div>
+        <div class="osr-center"></div>
+      </div>
+
+      <!-- App grid -->
+      <div class="os-apps" id="osApps">
+        <div class="os-app" data-app="nav"     tabindex="0" aria-label="Navigation app"><span>📍</span><small>Nav</small></div>
+        <div class="os-app" data-app="health"  tabindex="0" aria-label="Health app"><span>❤️</span><small>Health</small></div>
+        <div class="os-app" data-app="msg"     tabindex="0" aria-label="Messages app"><span>💬</span><small>Messages</small></div>
+        <div class="os-app" data-app="ai"      tabindex="0" aria-label="AI Assistant"><span>🧠</span><small>AI</small></div>
+        <div class="os-app" data-app="cam"     tabindex="0" aria-label="Camera app"><span>📷</span><small>Capture</small></div>
+        <div class="os-app" data-app="music"   tabindex="0" aria-label="Music app"><span>🎵</span><small>Sound</small></div>
+        <div class="os-app" data-app="weather" tabindex="0" aria-label="Weather app"><span>🌡</span><small>Weather</small></div>
+        <div class="os-app" data-app="settings"tabindex="0" aria-label="Settings"><span>⚙️</span><small>Settings</small></div>
+      </div>
+
+      <!-- Notification stream -->
+      <div class="os-notifs" id="osNotifs" aria-live="polite"></div>
+
+      <!-- App panel (slides in when app tapped) -->
+      <div class="os-panel" id="osPanel" style="display:none">
+        <div class="osp-header">
+          <span id="osPanelTitle">App</span>
+          <button class="osp-close" id="osPanelClose" aria-label="Close app">✕</button>
+        </div>
+        <div class="osp-body" id="osPanelBody"></div>
+      </div>
+
+      <!-- Bottom dock -->
+      <div class="os-dock">
+        <div class="os-dock-pill">
+          <button class="osd-btn" id="osDockHome"  aria-label="Home">⬡</button>
+          <button class="osd-btn" id="osDockBack"  aria-label="Back">←</button>
+          <button class="osd-btn active" id="osDockApps" aria-label="Apps">⊞</button>
+          <button class="osd-btn" id="osDockExit"  aria-label="Exit OS" title="Exit OS">✕</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     TESTIMONIALS  — social proof
+══════════════════════════════════════════════ -->
+<section class="testi-section" id="reviews" aria-label="Reviews">
+  <div class="container">
+    <div class="sec-eyebrow reveal">Early Access Reviews</div>
+    <h2 class="sec-h2 reveal">Worn by the<br/><em>future-first.</em></h2>
+    <div class="testi-track" id="testiTrack">
+      <div class="testi-inner" id="testiInner">
+        <div class="tc">
+          <div class="tc-stars">★★★★★</div>
+          <p>"Wearing CRSPY for a week made my phone feel like a VHS tape. The navigation overlay alone is worth the price."</p>
+          <div class="tc-author"><div class="tc-av" style="background:linear-gradient(135deg,#00f0ff,#0088ff)">JL</div><div><strong>Jordan Lee</strong><span>Product Designer, Berlin</span></div></div>
+        </div>
+        <div class="tc">
+          <div class="tc-stars">★★★★★</div>
+          <p>"The health dashboard kept me out of hospital. Caught an elevated SpO₂ reading on a flight and landed early. Not hyperbole."</p>
+          <div class="tc-author"><div class="tc-av" style="background:linear-gradient(135deg,#c47bff,#8844ff)">MK</div><div><strong>Maya Kovacs</strong><span>Surgeon, London</span></div></div>
+        </div>
+        <div class="tc">
+          <div class="tc-stars">★★★★★</div>
+          <p>"I've tried every AR device since Google Glass. CRSPY is the first one I forgot I was wearing. That's everything."</p>
+          <div class="tc-author"><div class="tc-av" style="background:linear-gradient(135deg,#ff5f2e,#ff0088)">RN</div><div><strong>Ravi Nair</strong><span>Founder, Bangalore</span></div></div>
+        </div>
+        <div class="tc">
+          <div class="tc-stars">★★★★★</div>
+          <p>"The Translate app changed a 3-week trip to Japan. Every menu, every sign, instantly readable. Borderline magical."</p>
+          <div class="tc-author"><div class="tc-av" style="background:linear-gradient(135deg,#39ff14,#00c8ff)">SC</div><div><strong>Sofia Chen</strong><span>Travel Writer, NYC</span></div></div>
+        </div>
+        <div class="tc">
+          <div class="tc-stars">★★★★★</div>
+          <p>"42 grams. I wear them all day. The battery life is incredible. This is what wearables were always supposed to be."</p>
+          <div class="tc-author"><div class="tc-av" style="background:linear-gradient(135deg,#ffc107,#ff6b35)">AL</div><div><strong>Alex Laurent</strong><span>VC Partner, Paris</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-nav" aria-label="Carousel navigation">
+      <button class="tn-btn" id="testiPrev" aria-label="Previous review">←</button>
+      <div class="testi-dots" id="testiDots"></div>
+      <button class="tn-btn" id="testiNext" aria-label="Next review">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     INVESTOR DATA ROOM  (press I to open)
+══════════════════════════════════════════════ -->
+<div class="dataroom" id="dataroom" aria-hidden="true" role="dialog" aria-label="Investor data room">
+  <div class="dr-backdrop" id="drBackdrop"></div>
+  <div class="dr-panel">
+    <div class="dr-header">
+      <span class="dr-logo">◈ CRSPY — Investor Overview</span>
+      <button class="dr-close" id="drClose" aria-label="Close data room">✕</button>
+    </div>
+    <div class="dr-body">
+      <div class="dr-metrics">
+        <div class="dr-m"><span class="drm-val" data-target="48">0</span><span class="drm-u">K</span><div class="drm-l">Waitlist</div></div>
+        <div class="dr-m"><span class="drm-val" data-target="94">0</span><span class="drm-u">%</span><div class="drm-l">NPS Score</div></div>
+        <div class="dr-m"><span class="drm-val" data-target="3">0</span><span class="drm-u">ms</span><div class="drm-l">Latency</div></div>
+        <div class="dr-m"><span class="drm-val" data-target="12">0</span><span class="drm-u">h</span><div class="drm-l">Battery</div></div>
+        <div class="dr-m"><span class="drm-val" data-target="200">0</span><span class="drm-u">+</span><div class="drm-l">Apps Ready</div></div>
+        <div class="dr-m"><span class="drm-val" data-target="18">0</span><span class="drm-u">mo</span><div class="drm-l">Dev Time</div></div>
+      </div>
+      <canvas id="drChart" height="180" aria-label="Revenue projection chart"></canvas>
+      <div class="dr-chart-label">Projected ARR ($M) — 5 Year</div>
+      <div class="dr-table">
+        <div class="drt-head"><span>Milestone</span><span>Target</span><span>Status</span></div>
+        <div class="drt-row"><span>Hardware R&amp;D complete</span><span>Q1 2025</span><span class="drt-done">✓ Done</span></div>
+        <div class="drt-row"><span>OS beta closed testing</span><span>Q2 2025</span><span class="drt-done">✓ Done</span></div>
+        <div class="drt-row"><span>App ecosystem (200+ apps)</span><span>Q2 2025</span><span class="drt-done">✓ Done</span></div>
+        <div class="drt-row"><span>Founding member shipping</span><span>Q3 2025</span><span class="drt-active">⟳ In Progress</span></div>
+        <div class="drt-row"><span>Retail launch</span><span>Q4 2025</span><span class="drt-pending">— Planned</span></div>
+        <div class="drt-row"><span>Enterprise / B2B tier</span><span>Q1 2026</span><span class="drt-pending">— Planned</span></div>
+      </div>
+      <div class="dr-footer">Press <kbd>I</kbd> or <kbd>Escape</kbd> to close · Confidential</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     CINEMATIC PRODUCT REVEAL  — scroll-triggered
+══════════════════════════════════════════════ -->
+<section class="reveal-section" id="reveal" aria-label="Product reveal">
+  <div class="rev-sticky">
+    <canvas id="rev-canvas" aria-hidden="true"></canvas>
+    <div class="rev-layers">
+      <div class="rev-layer" id="revL1">
+        <div class="rev-text">
+          <div class="rev-tag">01 — Hardware</div>
+          <h2 class="rev-h">Titanium.<br/>Carbon.<br/><em>42 grams.</em></h2>
+        </div>
+      </div>
+      <div class="rev-layer" id="revL2">
+        <div class="rev-text">
+          <div class="rev-tag">02 — Display</div>
+          <h2 class="rev-h">8K per eye.<br/>120Hz.<br/><em>Zero flicker.</em></h2>
+        </div>
+        <div class="rev-spec-line reveal"><span class="rsl-val">8192</span><span class="rsl-u">×</span><span class="rsl-val">8192</span><span class="rsl-l">pixels per lens</span></div>
+      </div>
+      <div class="rev-layer" id="revL3">
+        <div class="rev-text">
+          <div class="rev-tag">03 — Intelligence</div>
+          <h2 class="rev-h">On-device AI.<br/>Zero cloud.<br/><em>3ms flat.</em></h2>
+        </div>
+        <div class="rev-chip-viz" aria-hidden="true">
+          <div class="rcv-ring rcv-r1"></div>
+          <div class="rcv-ring rcv-r2"></div>
+          <div class="rcv-ring rcv-r3"></div>
+          <div class="rcv-core">NPU</div>
+          <div class="rcv-pulse"></div>
+        </div>
+      </div>
+      <div class="rev-layer" id="revL4">
+        <div class="rev-text">
+          <div class="rev-tag">04 — Battery</div>
+          <h2 class="rev-h">12 hours.<br/>20 min charge.<br/><em>Graphene cell.</em></h2>
+        </div>
+        <div class="rev-battery-viz" aria-hidden="true">
+          <div class="rbv-outer">
+            <div class="rbv-fill" id="rbvFill"></div>
+            <div class="rbv-label" id="rbvLabel">0%</div>
+          </div>
+          <div class="rbv-tip"></div>
+        </div>
+      </div>
+    </div>
+    <div class="rev-progress" id="revProgress" aria-hidden="true">
+      <div class="rev-prog-fill" id="revProgFill"></div>
+    </div>
+    <div class="rev-counter" id="revCounter" aria-hidden="true">01 / 04</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     AI ASSISTANT CHAT  — live Claude API
+══════════════════════════════════════════════ -->
+<section class="ai-section" id="ai-chat" aria-label="AI Assistant">
+  <div class="container">
+    <div class="sec-eyebrow reveal">On-Device AI</div>
+    <h2 class="sec-h2 reveal">Ask CRSPY<br/><em>anything.</em></h2>
+    <p class="sec-sub reveal">CRSPY's on-device AI runs locally at 3ms — no cloud, no latency, no compromise. Chat with a simulation of it below.</p>
+
+    <div class="ai-shell reveal">
+      <div class="ai-chat-area" id="aiMessages" aria-live="polite" aria-label="Conversation">
+        <div class="ai-msg ai-msg-bot">
+          <div class="ai-avatar">◈</div>
+          <div class="ai-bubble">
+            Hi — I'm the CRSPY AI assistant, running entirely on-device inside your glasses. Ask me anything about what I can see, your health data, navigation, or the world around you.
+          </div>
+        </div>
+      </div>
+      <div class="ai-suggestions" id="aiSuggestions">
+        <button class="ai-sug" data-q="What can you see right now?">What can you see?</button>
+        <button class="ai-sug" data-q="How is my health looking today?">My health today</button>
+        <button class="ai-sug" data-q="Navigate me home">Navigate home</button>
+        <button class="ai-sug" data-q="What is the latency of your on-device AI?">Your latency?</button>
+        <button class="ai-sug" data-q="Translate the sign in front of me">Translate sign</button>
+        <button class="ai-sug" data-q="What are CRSPY glasses made of?">Materials?</button>
+      </div>
+      <div class="ai-input-row">
+        <input class="ai-input" id="aiInput" type="text" placeholder="Ask the CRSPY AI assistant…" autocomplete="off" maxlength="200" aria-label="Message to AI assistant"/>
+        <button class="ai-send" id="aiSend" aria-label="Send message">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1 8L15 1 8.5 8 15 15 1 8z"/></svg>
+        </button>
+      </div>
+      <div class="ai-footer">
+        <span class="ai-status" id="aiStatus"><span class="ai-dot"></span>On-device · Private · 3ms</span>
+        <span class="ai-powered">Powered by Claude</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     AR CITY WALK  — immersive canvas scene
+══════════════════════════════════════════════ -->
+<section class="city-section" id="city" aria-label="AR City Experience">
+  <div class="container">
+    <div class="sec-eyebrow reveal">AR in the Wild</div>
+    <h2 class="sec-h2 reveal">Step outside.<br/><em>CRSPY follows.</em></h2>
+    <p class="sec-sub reveal">A simulated first-person walk through an AR-enhanced city. Every surface tagged. Every building identified. All in real time.</p>
+  </div>
+  <div class="city-vp" id="cityVp" aria-label="AR city view simulation">
+    <canvas id="city-canvas"></canvas>
+    <div class="city-hud" aria-hidden="true">
+      <div class="city-hud-tl">
+        <div class="city-badge">AR WALK MODE</div>
+        <div class="city-speed" id="citySpeed">0.0 km/h</div>
+      </div>
+      <div class="city-hud-tr">
+        <div class="city-compass" id="cityCompass">N 0°</div>
+        <div class="city-time" id="cityTime"></div>
+      </div>
+      <div class="city-hud-bl">
+        <div class="city-nav" id="cityNav">📍 Destination: 1.2 km</div>
+      </div>
+      <div class="city-hud-br">
+        <div class="city-air" id="cityAir">AQI 24 — Good</div>
+      </div>
+      <div class="city-reticle" aria-hidden="true">
+        <div class="cret-tl"></div><div class="cret-tr"></div>
+        <div class="cret-bl"></div><div class="cret-br"></div>
+        <div class="cret-cross-h"></div><div class="cret-cross-v"></div>
+      </div>
+    </div>
+    <div class="city-tags" id="cityTags" aria-hidden="true"></div>
+    <div class="city-ctrl">
+      <button class="city-btn active" id="cityPlay" aria-label="Play/pause city walk">⏸ Pause</button>
+      <button class="city-btn" id="cityReset" aria-label="Reset city walk">↺ Reset</button>
+      <label class="city-speed-label">Speed
+        <input type="range" id="citySpeedSlider" min="1" max="5" value="2" aria-label="Walk speed"/>
+      </label>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     TIMELINE / ROADMAP
+══════════════════════════════════════════════ -->
+<section class="timeline-section" id="timeline" aria-label="Product timeline">
+  <div class="container">
+    <div class="sec-eyebrow reveal">Roadmap</div>
+    <h2 class="sec-h2 reveal">Where we've been.<br/><em>Where we're going.</em></h2>
+
+    <div class="timeline" id="timeline-track">
+      <div class="tl-spine" aria-hidden="true"><div class="tl-spine-fill" id="tlSpineFill"></div></div>
+
+      <div class="tl-item tl-done reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">Q1 2024</div>
+          <h3>Hardware R&amp;D Complete</h3>
+          <p>Titanium frame prototype. Graphene battery cell. Dual micro-OLED confirmed at 8K.</p>
+          <div class="tl-pill done">✓ Complete</div>
+        </div>
+      </div>
+
+      <div class="tl-item tl-done reveal rd1">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">Q3 2024</div>
+          <h3>CRSPY OS 1.0 Internal</h3>
+          <p>Spatial OS core. Gaze tracking at 120fps. Neural gesture recognition layer.</p>
+          <div class="tl-pill done">✓ Complete</div>
+        </div>
+      </div>
+
+      <div class="tl-item tl-done reveal rd2">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">Q4 2024</div>
+          <h3>App Ecosystem Opens</h3>
+          <p>200+ AR-native apps certified. Developer SDK released. First-party suite shipped.</p>
+          <div class="tl-pill done">✓ Complete</div>
+        </div>
+      </div>
+
+      <div class="tl-item tl-done reveal rd3">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">Q2 2025</div>
+          <h3>OS 3.0 + On-Device AI</h3>
+          <p>NPU integration. Local LLM at 3ms. Biometric suite. Zero-cloud architecture.</p>
+          <div class="tl-pill done">✓ Complete</div>
+        </div>
+      </div>
+
+      <div class="tl-item tl-active reveal rd1">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">Q3 2025</div>
+          <h3>Founding Member Shipping</h3>
+          <p>48,000 units to founding members. Full consumer hardware in production.</p>
+          <div class="tl-pill active">⟳ In Progress</div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal rd2">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">Q4 2025</div>
+          <h3>Global Retail Launch</h3>
+          <p>Apple Store, Best Buy, online. 40 countries Day 1. Enterprise tier opens.</p>
+          <div class="tl-pill pending">— Planned</div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal rd3">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">Q2 2026</div>
+          <h3>CRSPY Gen IV Hardware</h3>
+          <p>Lighter. Longer. 16K per eye. Neural direct-thought interface prototype.</p>
+          <div class="tl-pill pending">— Planned</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     PRESS KIT + MEDIA
+══════════════════════════════════════════════ -->
+<section class="press-section" id="press" aria-label="Press kit">
+  <div class="container">
+    <div class="sec-eyebrow reveal">Press &amp; Media</div>
+    <h2 class="sec-h2 reveal">As seen in<br/><em>the future.</em></h2>
+
+    <div class="press-logos reveal">
+      <div class="pl">TechCrunch</div>
+      <div class="pl">WIRED</div>
+      <div class="pl">The Verge</div>
+      <div class="pl">Fast Company</div>
+      <div class="pl">Forbes</div>
+      <div class="pl">Bloomberg</div>
+    </div>
+
+    <div class="press-quotes reveal">
+      <div class="pq">
+        <p>"The most ambitious AR hardware since Magic Leap — and actually wearable."</p>
+        <span>— TechCrunch</span>
+      </div>
+      <div class="pq">
+        <p>"CRSPY has done what the entire industry has failed to do: make AR glasses you'd actually wear outside."</p>
+        <span>— WIRED</span>
+      </div>
+      <div class="pq">
+        <p>"42 grams, 12 hours, 8K per eye. The specs alone should terrify every incumbent."</p>
+        <span>— The Verge</span>
+      </div>
+    </div>
+
+    <div class="press-kit-row reveal">
+      <div class="pk-card" id="pkLogo">
+        <div class="pk-icon">◈</div>
+        <h3>Logo Pack</h3>
+        <p>SVG, PNG, dark &amp; light variants</p>
+        <button class="pk-dl" data-file="logos">Download ZIP</button>
+      </div>
+      <div class="pk-card" id="pkPress">
+        <div class="pk-icon">📄</div>
+        <h3>Press Release</h3>
+        <p>Full product launch release</p>
+        <button class="pk-dl" data-file="press">Download PDF</button>
+      </div>
+      <div class="pk-card" id="pkSpec">
+        <div class="pk-icon">📊</div>
+        <h3>Spec Sheet</h3>
+        <p>Technical specifications PDF</p>
+        <button class="pk-dl" data-file="specs">Download PDF</button>
+      </div>
+      <div class="pk-card" id="pkMedia">
+        <div class="pk-icon">🎬</div>
+        <h3>Media Kit</h3>
+        <p>Hi-res renders, lifestyle photography</p>
+        <button class="pk-dl" data-file="media">Download ZIP</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     AMBIENT SOUND ENGINE UI
+══════════════════════════════════════════════ -->
+<div class="ambient-panel" id="ambientPanel" aria-label="Ambient sound control">
+  <button class="amb-toggle" id="ambToggle" aria-label="Toggle ambient sound" aria-expanded="false">
+    <span class="amb-icon">♪</span>
+    <span class="amb-bars" aria-hidden="true">
+      <span class="ab ab1"></span><span class="ab ab2"></span>
+      <span class="ab ab3"></span><span class="ab ab4"></span>
+    </span>
+  </button>
+  <div class="amb-ctrl" id="ambCtrl" style="display:none">
+    <div class="amb-label">Ambient Sound</div>
+    <div class="amb-options">
+      <button class="amb-opt active" data-amb="space">Deep Space</button>
+      <button class="amb-opt" data-amb="city">City AR</button>
+      <button class="amb-opt" data-amb="neural">Neural Pulse</button>
+      <button class="amb-opt" data-amb="off">Off</button>
+    </div>
+    <div class="amb-vol-row">
+      <span>Vol</span>
+      <input type="range" id="ambVol" min="0" max="100" value="30" aria-label="Ambient volume"/>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     EASTER EGG — Konami code
+══════════════════════════════════════════════ -->
+<div class="konami-overlay" id="konamiOverlay" style="display:none" aria-hidden="true">
+  <canvas id="konami-canvas"></canvas>
+  <div class="konami-msg">
+    <div class="konami-logo">◈ CRSPY</div>
+    <div class="konami-text">You found it.</div>
+    <div class="konami-sub">The future belongs to the curious.</div>
+    <button class="konami-close" id="konamiClose">Continue →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     CTA
+══════════════════════════════════════════════ -->
+<section class="cta-band">
+  <canvas id="c-cta" aria-hidden="true"></canvas>
+  <div class="cta-inner">
+    <div class="sec-eyebrow reveal" style="justify-content:center">Reserve · Q3 2025</div>
+    <h2 class="cta-h reveal">The future<br/>is already<br/><em>here.</em></h2>
+    <p class="cta-sub reveal">Join 48,000+ founding members.<br/>Ships Q3 2025. Free returns. Lifetime software updates.</p>
+    <div class="cta-acts reveal">
+      <button class="btn-primary btn-xl" id="reserveBtn">
+        <span class="btn-shine"></span>Reserve Now — $1,299
+      </button>
+      <a href="#demo" class="btn-ghost">Watch Demo →</a>
+    </div>
+    <div class="cta-trust reveal">
+      <span>🔒 Secure checkout</span>
+      <span>↩ Free returns</span>
+      <span>♾ Lifetime updates</span>
+      <span>★ 4.9 / 5 from early access</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo"><span class="logo-glyph">◈</span> CRSPY</div>
+        <p>The future is already here.<br/>It lives in your glasses.</p>
+        <div class="footer-soc">
+          <a href="#" aria-label="X / Twitter">𝕏</a>
+          <a href="#" aria-label="Instagram">◎</a>
+          <a href="#" aria-label="YouTube">▶</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+        </div>
+      </div>
+      <div class="footer-cols">
+        <div class="fc"><h4>Product</h4><a href="#vision">Features</a><a href="#tech">Specs</a><a href="#apps">Apps</a><a href="#demo">Demo</a><a href="#mirror">Mirror</a></div>
+        <div class="fc"><h4>Company</h4><a href="#">About</a><a href="#">Careers</a><a href="#">Blog</a><a href="#">Press</a></div>
+        <div class="fc"><h4>Contact</h4><a href="/cdn-cgi/l/email-protection#a5cdc0c9c9cae5c6d7d6d5dc8bccca"><span class="__cf_email__" data-cfemail="a6cec3cacac9e6c5d4d5d6df88cfc9">[email&#160;protected]</span></a><a href="tel:+15550100200">+1 555 010 0200</a><a href="#">Support</a><a href="#">Partners</a></div>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <p>&copy; 2025 CRSPY Technologies, Inc. All rights reserved.</p>
+      <div class="footer-leg"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+    </div>
+  </div>
+</footer>
+
+<div id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+<!-- THREE.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link rel="stylesheet" href="upgrade.css"/>
+<link rel="stylesheet" href="v5.css"/>
+<script src="script.js"></script>
+<script src="upgrade.js"></script>
+<script src="v5.js"></script>
+</body>
+</html>
